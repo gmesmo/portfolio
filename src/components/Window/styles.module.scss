@@ -1,0 +1,79 @@
+.rnd {
+  position: relative;
+  z-index: 15;
+}
+
+.window {
+  background-color: #424242;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+
+  width: 450px;
+  height: 300px;
+  border-radius: var(--border-radius);
+
+  overflow: hidden;
+
+  .titleBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px;
+
+    background-color: #333;
+
+    .titleBarText {
+      display: flex;
+      align-items: center;
+
+      font-size: 14px;
+      color: var(--primary);
+      user-select: none;
+
+      transition: all 0.3s;
+
+      svg {
+        color: var(--purple);
+        margin: 0px 8px 0px 4px;
+      }
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: var(--purple);
+      color: var(--primary);
+
+      border: none;
+      border-radius: var(--border-radius);
+      width: 25px;
+      height: 25px;
+
+      cursor: pointer;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+}
+
+.selected {
+  z-index: 50;
+
+  .titleBar {
+    background-color: var(--purple);
+
+    .titleBarText svg {
+      color: var(--primary);
+    }
+
+    button {
+      background: var(--primary);
+      color: var(--purple);
+    }
+  }
+}

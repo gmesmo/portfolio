@@ -1,0 +1,22 @@
+:root {
+  --background: #0f0f0f;
+  --primary: #fff;
+  --secondary: #272727;
+  --text-primary: #ffffff;
+  --text-secondary: #b3b3b3;
+  --accent: #ff6f61;
+  --hover: #91248b;
+  --purple: #91248b;
+  --darkPurple: #4e0a4a;
+
+  --gradient: conic-gradient(
+    from 45deg at 50% 50%,
+    var(--purple) 0%,
+    var(--darkPurple) 25%,
+    var(--purple) 50%,
+    var(--darkPurple) 75%,
+    var(--purple) 99%
+  );
+
+  --border-radius: 8px;
+}
