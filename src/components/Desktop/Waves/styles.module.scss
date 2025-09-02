@@ -8,6 +8,10 @@
   /*Fix for safari gap*/
   min-height: 100px;
   max-height: 200px;
+
+  &.night use {
+    filter: brightness(0.2) saturate(0.85);
+  }
 }
 
 .parallax > use {
@@ -17,7 +21,7 @@
 .parallax > use:nth-child(1) {
   animation-delay: -2s;
   animation-duration: 7s;
-  fill: hsla(204, 100%, 50%, 0.7);
+  fill: rgba(0, 153, 255, 0.7);
 }
 
 .parallax > use:nth-child(2) {
@@ -29,13 +33,13 @@
 .parallax > use:nth-child(3) {
   animation-delay: -4s;
   animation-duration: 13s;
-  fill: hsla(204, 100%, 50%, 0.3);
+  fill: rgba(0, 153, 255, 0.3);
 }
 
 .parallax > use:nth-child(4) {
   animation-delay: -5s;
   animation-duration: 20s;
-  fill: #0099ff;
+  fill: rgb(0, 153, 255);
 }
 
 @keyframes move-forever {

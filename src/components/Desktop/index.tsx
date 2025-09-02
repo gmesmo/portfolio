@@ -8,9 +8,11 @@ import Window from '../Window'
 
 import styles from './styles.module.scss'
 import Waves from './Waves'
+import { useTimeStore } from '../../store/getTimeStore'
 
 const Desktop = () => {
   const [isAlertOn, setIsAlertOn] = useState(false)
+  const { time, sunset, sunrise } = useTimeStore()
 
   useEffect(() => {
     if (isAlertOn) {
@@ -21,7 +23,11 @@ const Desktop = () => {
   }, [isAlertOn])
 
   return (
-    <section className={styles.desktop}>
+    <section
+      className={`${styles.desktop}   ${
+        time > sunset! || time < sunrise! ? styles.night : ''
+      }`}
+    >
       {isAlertOn && (
         <Alert
           onClose={() => setIsAlertOn(false)}
@@ -35,7 +41,7 @@ const Desktop = () => {
       <FolderIcons setAlertOn={setIsAlertOn} />
       <Clock />
       <Window />
-      <Waves />
+      <Waves night={time > sunset! || time < sunrise!} />
     </section>
   )
 }
