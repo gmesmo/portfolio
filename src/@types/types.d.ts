@@ -5,6 +5,7 @@ type Folder = {
 }
 
 interface AppWindow extends Folder {
+  winType: string
   position: { x: number; y: number }
   size: { width: number; height: number }
   selected?: boolean

@@ -3,6 +3,7 @@ import { Rnd as Draggable } from 'react-rnd'
 
 import { useWindowStore } from '../../store/windowStore'
 import styles from './styles.module.scss'
+import WinContent from './WinContent'
 
 const Window = () => {
   const { windows, removeWindow, dragWindow, selectWindow } = useWindowStore()
@@ -26,6 +27,7 @@ const Window = () => {
           position={{ x: window.position.x, y: window.position.y }}
           onClick={() => clickHandler(index)}
           onDrag={(e, data) => dragHandler(e, data, index)}
+          enableResizing={false}
         >
           <div
             className={styles.window}
@@ -41,11 +43,14 @@ const Window = () => {
               <button
                 aria-label='Close'
                 onClick={() => removeWindow(window.id)}
+                onTouchStart={() => removeWindow(window.id)}
               >
                 <CloseIcon />
               </button>
             </div>
-            <div className='window-body'></div>
+            <div>
+              <WinContent winName={window.name} />
+            </div>
           </div>
         </Draggable>
       ))}

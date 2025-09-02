@@ -4,11 +4,51 @@
   padding: 3rem;
   position: relative;
   overflow: hidden;
-  background-color: var(--background);
+  background-size: 100% 100%;
+  background-position: 0px 0px;
+  background-image: radial-gradient(
+    70dvh 70dvh at 100% 0%,
+    #ffdd00ff 0%,
+    #1d3fc2ff 53%
+  );
 
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
 
   gap: 1rem;
   flex-wrap: wrap;
+}
+
+.alert {
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+
+  min-width: 40dvw;
+  opacity: 0;
+  animation: fadeInOut 0.15s forwards, shake 0.25s;
+}
+
+@keyframes fadeInOut {
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(-50%);
+  }
+  20%,
+  60% {
+    transform: translateX(-49%);
+  }
+  40%,
+  80% {
+    transform: translateX(-51%);
+  }
 }

@@ -1,3 +1,9 @@
+@property --glow-deg {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: -90deg;
+}
+
 :root {
   --background: #0f0f0f;
   --primary: #fff;
@@ -17,6 +23,11 @@
     var(--darkPurple) 75%,
     var(--purple) 99%
   );
+
+  --gradient2: #ff0000, #ff7300, #ffee00, #15ff00, #00ffd5, #0044ff, #7a00ff,
+    #ff00dd, #ff0075, #ff0000;
+  --glow-deg: -90deg;
+  --surface: var(--background);
 
   --border-radius: 8px;
 }

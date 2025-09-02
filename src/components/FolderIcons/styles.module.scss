@@ -1,3 +1,9 @@
+.folderContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .folder {
   position: relative;
   z-index: 10;
@@ -11,33 +17,31 @@
   font-size: 0.8rem;
   letter-spacing: 1px;
 
-  max-width: 100px;
+  max-width: 110px;
   aspect-ratio: 1/1;
 
   color: var(--primary);
+  border: 3px solid var(--purple);
+  padding: 8px;
   border-radius: 8px;
 
+  transition: all 0.3s;
   cursor: pointer;
   user-select: none;
 
-  ::after {
-    content: '';
-    position: absolute;
-    inset: -20px;
-    z-index: -1;
-    background: var(--gradient);
-    transform: rotate(0deg);
+  &:hover {
+    background-color: var(--purple);
+    filter: drop-shadow(0 0 6px var(--purple));
 
-    opacity: 0;
-
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    svg,
+    p {
+      filter: drop-shadow(0 0 4px var(--primary));
+    }
   }
 
-  &:hover {
-    ::after {
-      opacity: 0.75;
-      transform: rotate(110deg);
-    }
+  svg,
+  p {
+    transition: filter 0.3s;
   }
 
   svg {
@@ -48,4 +52,29 @@
   p {
     margin-top: 0.5rem;
   }
+
+  .counter {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: white;
+    color: var(--purple);
+
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+  }
+}
+
+.glass {
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }

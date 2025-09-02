@@ -1,0 +1,9 @@
+.clock {
+  font-size: 2rem;
+  color: var(--primary);
+  letter-spacing: 3px;
+  user-select: none;
+  line-height: 88px;
+
+  text-shadow: 0 0 6px var(--primary);
+}

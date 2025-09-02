@@ -11,7 +11,11 @@ const folderIcons: Folder[] = [
   { id: '3', name: 'CONTATO', icon: <AlternateEmailIcon /> }
 ]
 
-const FolderIcons = () => {
+type FolderIconsProps = {
+  setAlertOn: (value: boolean) => void
+}
+
+const FolderIcons = ({ setAlertOn }: FolderIconsProps) => {
   const { windows, addWindow } = useWindowStore()
 
   const clickHandler = (code: number) => {
@@ -19,30 +23,33 @@ const FolderIcons = () => {
       x: 250 + 25 * windows.length,
       y: 100 + 25 * windows.length
     }
-    const size = { width: 400, height: 300 }
+    const size = { width: 450, height: 300 }
 
     if (windows.length < 10) {
       addWindow(folderIcons[code], position, size)
     } else {
-      alert('Número máximo de pastas atingido!')
+      setAlertOn(true)
     }
-
-    console.log(windows)
   }
 
   return (
-    <>
+    <div className={styles.folderContainer}>
       {folderIcons.map((folder, index) => (
         <div
           key={folder.id}
-          className={styles.folder}
+          className={`${styles.folder} ${styles.glass}`}
           onClick={() => clickHandler(index)}
         >
           {folder.icon}
           <p>{folder.name}</p>
+          {windows.filter((win) => win.winType === folder.id).length > 0 && (
+            <span className={styles.counter}>
+              {windows.filter((win) => win.winType === folder.id).length}
+            </span>
+          )}
         </div>
       ))}
-    </>
+    </div>
   )
 }
 
