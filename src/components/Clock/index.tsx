@@ -1,14 +1,39 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useTimeStore } from '../../store/getTimeStore'
 
 import styles from './styles.module.scss'
+import { Alert, Button } from '@mui/material'
 
-const Clock = () => {
+type clockProps = {
+  clockClick: () => void
+}
+
+const Clock = ({ clockClick }: clockProps) => {
   const { time, updateTime, getSunTime } = useTimeStore()
+  const [hasPermission, setHasPermission] = useState<boolean | null>(null)
 
   updateTime()
 
   useEffect(() => {
+    // Checa permissão de geolocalização
+    if ('permissions' in navigator) {
+      navigator.permissions.query({ name: 'geolocation' }).then((result) => {
+        if (result.state === 'granted') {
+          setHasPermission(true)
+        } else {
+          setHasPermission(false)
+        }
+
+        // também escuta mudanças (se o usuário alterar nas configs)
+        result.onchange = () => {
+          setHasPermission(result.state === 'granted')
+        }
+      })
+    }
+  }, [getSunTime])
+
+  const locationPermission = () => {
+    // Pega posição atual
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         getSunTime(pos.coords.latitude, pos.coords.longitude)
@@ -17,12 +42,34 @@ const Clock = () => {
         getSunTime()
       }
     )
-  }, [getSunTime])
+  }
 
   return (
-    <div className={styles.clock}>
-      {time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
-    </div>
+    <>
+      {hasPermission === false && (
+        <Alert
+          onClose={() => setHasPermission(null)}
+          severity='warning'
+          className={styles.alert}
+        >
+          Esse site usa sua localização para alternar entre o modo dia e noite.
+          <Button
+            color='inherit'
+            size='small'
+            onClick={() => locationPermission()}
+            sx={{ ml: 2 }}
+          >
+            PERMITIR
+          </Button>
+        </Alert>
+      )}
+      <div className={styles.clock} onClick={() => clockClick()}>
+        {time.toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit'
+        })}
+      </div>
+    </>
   )
 }
 

@@ -6,4 +6,12 @@
   line-height: 88px;
 
   text-shadow: 0 0 6px var(--primary);
+
+  cursor: pointer;
+}
+
+.alert {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }

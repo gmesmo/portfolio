@@ -12,6 +12,8 @@ import { useTimeStore } from '../../store/getTimeStore'
 
 const Desktop = () => {
   const [isAlertOn, setIsAlertOn] = useState(false)
+  const [forceNight, setForceNight] = useState(false)
+
   const { time, sunset, sunrise } = useTimeStore()
 
   useEffect(() => {
@@ -22,12 +24,14 @@ const Desktop = () => {
     }
   }, [isAlertOn])
 
+  const handleClockClick = () => {
+    setForceNight(!forceNight)
+  }
+
+  let isNight = (time > sunset! && time < sunrise!) || forceNight
+
   return (
-    <section
-      className={`${styles.desktop}   ${
-        time > sunset! || time < sunrise! ? styles.night : ''
-      }`}
-    >
+    <section className={`${styles.desktop} ${isNight ? styles.night : ''}`}>
       {isAlertOn && (
         <Alert
           onClose={() => setIsAlertOn(false)}
@@ -37,12 +41,12 @@ const Desktop = () => {
           Número máximo de janelas atingido!
         </Alert>
       )}
-
       <FolderIcons setAlertOn={setIsAlertOn} />
-      <Clock />
+      <Clock clockClick={() => handleClockClick()} />
       <Window />
-      <Waves night={time > sunset! || time < sunrise!} />
+      <Waves night={isNight} />
     </section>
   )
 }
+
 export default Desktop

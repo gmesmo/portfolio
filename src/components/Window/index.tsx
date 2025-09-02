@@ -3,6 +3,7 @@ import { Rnd as Draggable } from 'react-rnd'
 
 import { useWindowStore } from '../../store/windowStore'
 import styles from './styles.module.scss'
+import stylesIcon from '../FolderIcons/styles.module.scss'
 import WinContent from './WinContent'
 
 const Window = () => {
@@ -21,7 +22,9 @@ const Window = () => {
       {windows.map((window, index) => (
         <Draggable
           key={index}
-          className={`${styles.rnd} ${window.selected ? styles.selected : ''}`}
+          className={`${styles.rnd} ${window.selected ? styles.selected : ''} ${
+            stylesIcon.glass
+          }`}
           dragHandleClassName={styles.titleBar}
           size={{ width: window.size.width, height: window.size.height }}
           position={{ x: window.position.x, y: window.position.y }}
@@ -48,9 +51,8 @@ const Window = () => {
                 <CloseIcon />
               </button>
             </div>
-            <div>
-              <WinContent winName={window.name} />
-            </div>
+
+            <WinContent winName={window.name} />
           </div>
         </Draggable>
       ))}

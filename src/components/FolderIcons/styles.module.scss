@@ -21,7 +21,7 @@
   aspect-ratio: 1/1;
 
   color: var(--primary);
-  border: 3px solid var(--purple);
+  border: 3px solid var(--accent);
   padding: 8px;
   border-radius: 8px;
 
@@ -30,8 +30,8 @@
   user-select: none;
 
   &:hover {
-    background-color: var(--purple);
-    filter: drop-shadow(0 0 6px var(--purple));
+    background-color: var(--accent);
+    filter: drop-shadow(0 0 6px var(--accent));
 
     svg,
     p {
@@ -62,8 +62,8 @@
     align-items: center;
     justify-content: center;
 
-    background-color: white;
-    color: var(--purple);
+    background-color: var(--primary);
+    color: var(--accent);
 
     width: 18px;
     height: 18px;

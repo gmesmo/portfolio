@@ -4,7 +4,11 @@
   padding: 3rem;
   position: relative;
   overflow: hidden;
-  background: radial-gradient(70dvh 70dvh at 100% 0%, #ffdd00 0%, #1d3fc2 53%);
+  background: radial-gradient(
+    70dvh 70dvh at 100% 0%,
+    var(--sky1) 0%,
+    var(--sky2) 53%
+  );
   background-size: 100% 100%;
   transition: background-size 0.5s ease-in-out,
     background-position 0.5s ease-in-out;
@@ -12,10 +16,14 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+
+  transition: all 0.3s;
 }
 
 .desktop.night {
-  background: radial-gradient(50dvh 50dvh at 100% 0%, #aaa 0%, #000 53%);
+  --sky1: #aaa;
+  --sky2: #000;
+  --accent: #91248b;
 }
 
 .alert {

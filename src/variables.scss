@@ -5,29 +5,16 @@
 }
 
 :root {
-  --background: #0f0f0f;
   --primary: #fff;
-  --secondary: #272727;
-  --text-primary: #ffffff;
-  --text-secondary: #b3b3b3;
-  --accent: #ff6f61;
+  --accent: #d3670e;
+  --rgbWater: 0, 153, 255;
+
   --hover: #91248b;
   --purple: #91248b;
   --darkPurple: #4e0a4a;
 
-  --gradient: conic-gradient(
-    from 45deg at 50% 50%,
-    var(--purple) 0%,
-    var(--darkPurple) 25%,
-    var(--purple) 50%,
-    var(--darkPurple) 75%,
-    var(--purple) 99%
-  );
-
-  --gradient2: #ff0000, #ff7300, #ffee00, #15ff00, #00ffd5, #0044ff, #7a00ff,
-    #ff00dd, #ff0075, #ff0000;
-  --glow-deg: -90deg;
-  --surface: var(--background);
+  --sky1: #ffdd00;
+  --sky2: #1d3fc2;
 
   --border-radius: 8px;
 }

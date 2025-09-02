@@ -1,5 +1,7 @@
 import { create } from 'zustand'
 
+import PersonIcon from '@mui/icons-material/Person'
+
 /**
  * Zustand store hook for managing opened windows in the portfolio application.
  *
@@ -17,7 +19,17 @@ import { create } from 'zustand'
  * - `selectWindow(id)`: Selects the window with the specified ID, deselects others, and moves it to the top (end of array).
  */
 export const useWindowStore = create<openedWindows>((set) => ({
-  windows: [],
+  windows: [
+    {
+      winType: '1',
+      id: crypto.randomUUID(),
+      name: 'SOBRE MIM',
+      icon: <PersonIcon />,
+      position: { x: 850, y: 100 },
+      size: { width: 650, height: 500 },
+      selected: true
+    }
+  ],
 
   addWindow: (
     folder: Folder,
