@@ -51,7 +51,7 @@ export function setPosition(position: position): { x: number; y: number } {
     position.x = screenWidth / 2 < pos.x ? 170 : pos.x
     position.y = pos.y
   } else if (isDesktop()) {
-    position.x = screenWidth / 2 < pos.x ? 170 : pos.x
+    position.x = screenWidth / 2 < pos.x ? 850 : pos.x
     position.y = pos.y
   }
 

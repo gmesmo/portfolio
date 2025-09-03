@@ -38,7 +38,8 @@ const timeStore = create<TimeState>((set, get) => ({
   sunrise: new Date(new Date().setHours(6, 0, 0, 0)), // Padrão: 06:00 do dia atual
 
   updateTime: () => {
-    setTimeout(() => set({ time: new Date() }), 1000)
+    // Atualiza o tempo a cada minuto
+    setTimeout(() => set({ time: new Date() }), 60000)
   },
 
   getTimezone: (timezone: string) =>

@@ -23,6 +23,12 @@ const Desktop = () => {
     }
   }, [isAlertOn])
 
+  const nightValue = isNight()
+
+  useEffect(() => {
+    setRenderDaytime(nightValue)
+  }, [nightValue])
+
   const handleClockClick = () => {
     if (renderDaytime === isNight()) {
       setRenderDaytime(!isNight())

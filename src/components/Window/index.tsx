@@ -33,6 +33,7 @@ const Window = () => {
             y: window.position.y
           })}
           onClick={() => clickHandler(index)}
+          onTouchStart={() => clickHandler(index)}
           onDrag={(e, data) => dragHandler(e, data, index)}
           enableResizing={false}
         >
