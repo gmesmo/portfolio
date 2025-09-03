@@ -7,6 +7,7 @@ type TimeState = {
   sunset: Date | null
   sunrise: Date | null
   getSunTime: (latitude?: number, longitude?: number) => Promise<void>
+  isNight: () => boolean
 }
 
 /**
@@ -17,6 +18,8 @@ type TimeState = {
  * @property {Date | null} sunrise - The sunrise time, if available.
  *
  * @method updateTime - Updates the `time` state to the current date every second.
+ * @returns {void}
+ *
  * @method getTimezone - Returns a formatted time string for a given timezone.
  * @param {string} timezone - The IANA timezone string (e.g., "America/New_York").
  * @returns {string} - The formatted time string for the specified timezone.
@@ -27,10 +30,12 @@ type TimeState = {
  * @param {number} [longitude] - The longitude coordinate.
  * @returns {Promise<void>} - Resolves when the sunrise and sunset times are updated.
  */
-export const useTimeStore = create<TimeState>((set) => ({
+const timeStore = create<TimeState>((set, get) => ({
   time: new Date(),
-  sunset: null,
-  sunrise: null,
+  // define sunset e sunrise com valores padrão
+  // caso o usuário não tenha permitido a localização
+  sunset: new Date(new Date().setHours(18, 0, 0, 0)), // Padrão: 18:00 do dia atual
+  sunrise: new Date(new Date().setHours(6, 0, 0, 0)), // Padrão: 06:00 do dia atual
 
   updateTime: () => {
     setTimeout(() => set({ time: new Date() }), 1000)
@@ -41,7 +46,7 @@ export const useTimeStore = create<TimeState>((set) => ({
 
   getSunTime: async (latitude?: number, longitude?: number) => {
     try {
-      const { time } = useTimeStore.getState()
+      const { time } = get()
       let sunsetDate: Date
       let sunriseDate: Date
 
@@ -76,5 +81,19 @@ export const useTimeStore = create<TimeState>((set) => ({
     } catch (error) {
       console.error(error)
     }
+  },
+
+  isNight: () => {
+    const { time, sunset, sunrise, getSunTime } = get()
+
+    if (sunset === null || sunrise === null) {
+      getSunTime()
+      return false // Retorna false temporariamente enquanto aguarda o getSunTime
+    }
+
+    // A noite é quando o tempo atual é maior que o pôr do sol OU menor que o nascer do sol (no caso de passar meia-noite)
+    return time > sunset! || time < sunrise!
   }
 }))
+
+export const useTimeStore = timeStore

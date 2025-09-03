@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useTimeStore } from '../../store/getTimeStore'
 
 import styles from './styles.module.scss'
@@ -14,12 +14,25 @@ const Clock = ({ clockClick }: clockProps) => {
 
   updateTime()
 
+  const locationPermission = useCallback(() => {
+    // Pega posição atual
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        getSunTime(pos.coords.latitude, pos.coords.longitude)
+      },
+      () => {
+        getSunTime()
+      }
+    )
+  }, [getSunTime])
+
   useEffect(() => {
     // Checa permissão de geolocalização
     if ('permissions' in navigator) {
       navigator.permissions.query({ name: 'geolocation' }).then((result) => {
         if (result.state === 'granted') {
           setHasPermission(true)
+          locationPermission()
         } else {
           setHasPermission(false)
         }
@@ -30,19 +43,7 @@ const Clock = ({ clockClick }: clockProps) => {
         }
       })
     }
-  }, [getSunTime])
-
-  const locationPermission = () => {
-    // Pega posição atual
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        getSunTime(pos.coords.latitude, pos.coords.longitude)
-      },
-      () => {
-        getSunTime()
-      }
-    )
-  }
+  }, [locationPermission])
 
   return (
     <>
