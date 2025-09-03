@@ -10,8 +10,12 @@
   max-height: 200px;
 }
 
+use {
+  transition: all 0.3s;
+}
+
 :has(.night) use {
-  filter: brightness(0.2) saturate(0.85);
+  --rgbWater: 4, 8, 10; // Azul Escuro para a Água (RGB: 20, 42, 52 - #142A34)
 }
 
 .parallax > use {

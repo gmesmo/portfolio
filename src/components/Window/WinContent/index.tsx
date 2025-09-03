@@ -1,3 +1,5 @@
+import { isMobile } from '../../../utils/screen'
+import Contact from '../../Contact'
 import styles from './styles.module.scss'
 
 type WinContentProps = {
@@ -17,7 +19,7 @@ const WinContent = ({ winName }: WinContentProps) => {
 const About = () => {
   return (
     <>
-      <div className={styles.heading}>
+      <div className={`${styles.heading} ${isMobile() && styles.mobile}`}>
         <span>
           <p>Guilherme Machado</p>
           <p>Desenvolvedor Front-end</p>
@@ -49,10 +51,6 @@ const About = () => {
 
 const Projects = () => {
   return <div>Projects</div>
-}
-
-const Contact = () => {
-  return <div>Contact</div>
 }
 
 export default WinContent

@@ -44,5 +44,17 @@
       height: 180px;
       border-radius: 50%;
     }
+
+    &.mobile {
+      justify-content: center;
+      align-items: center;
+      flex-direction: column-reverse;
+    }
+  }
+
+  .text {
+    text-align: justify;
+    line-height: 1.25rem;
+    text-indent: 2rem;
   }
 }

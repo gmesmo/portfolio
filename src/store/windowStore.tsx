@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 
 import PersonIcon from '@mui/icons-material/Person'
+import { setPosition, setSize } from '../utils/screen'
 
 /**
  * Zustand store hook for managing opened windows in the portfolio application.
@@ -25,15 +26,15 @@ export const useWindowStore = create<openedWindows>((set) => ({
       id: crypto.randomUUID(),
       name: 'SOBRE MIM',
       icon: <PersonIcon />,
-      position: { x: 850, y: 100 },
-      size: { width: 650, height: 500 },
+      position: setPosition({ x: '55%', y: '11%' }),
+      size: setSize(),
       selected: true
     }
   ],
 
   addWindow: (
     folder: Folder,
-    position: { x: number; y: number },
+    position: { x: number | string; y: number | string },
     size: { width: number; height: number }
   ) => {
     // Desmarca todas as outras janelas
@@ -52,8 +53,8 @@ export const useWindowStore = create<openedWindows>((set) => ({
           id: crypto.randomUUID(),
           name: folder.name,
           icon: folder.icon,
-          position,
-          size,
+          position: setPosition(position),
+          size: setSize(),
           selected: true
         }
       ]

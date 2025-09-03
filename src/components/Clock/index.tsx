@@ -64,11 +64,13 @@ const Clock = ({ clockClick }: clockProps) => {
           </Button>
         </Alert>
       )}
-      <div className={styles.clock} onClick={() => clockClick()}>
-        {time.toLocaleTimeString('en-US', {
-          hour: '2-digit',
-          minute: '2-digit'
-        })}
+      <div>
+        <p className={styles.clock} onClick={() => clockClick()}>
+          {time.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit'
+          })}
+        </p>
       </div>
     </>
   )

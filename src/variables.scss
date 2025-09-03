@@ -5,16 +5,16 @@
 }
 
 :root {
-  --primary: #fff;
-  --accent: #d3670e;
-  --rgbWater: 0, 153, 255;
+  --primary: #fff; // Manter ou ajustar conforme necessário
+  --accent: #d3670e; // Laranja (Destaque)
+  --hover: #91248b; // Roxo (Destaque)
+  --purple: #91248b; // Roxo (Destaque)
+  --darkPurple: #4e0a4a; // Roxo mais escuro (Destaque)
 
-  --hover: #91248b;
-  --purple: #91248b;
-  --darkPurple: #4e0a4a;
+  // Cores para o Modo Dia:
+  --sky1: #ffd700; // Amarelo Dourado para o Sol
+  --sky2: #87ceeb; // Azul Claro para o Céu (Sky Blue)
+  --rgbWater: 65, 105, 225; // Azul Royal para a Água (RGB: 65, 105, 225 - #4169E1)
 
-  --sky1: #ffdd00;
-  --sky2: #1d3fc2;
-
-  --border-radius: 8px;
+  --border-radius: 8px; // Manter
 }

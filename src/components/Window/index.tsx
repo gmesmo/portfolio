@@ -5,6 +5,7 @@ import { useWindowStore } from '../../store/windowStore'
 import styles from './styles.module.scss'
 import stylesIcon from '../FolderIcons/styles.module.scss'
 import WinContent from './WinContent'
+import { getValueFromPerc } from '../../utils/screen'
 
 const Window = () => {
   const { windows, removeWindow, dragWindow, selectWindow } = useWindowStore()
@@ -27,7 +28,10 @@ const Window = () => {
           }`}
           dragHandleClassName={styles.titleBar}
           size={{ width: window.size.width, height: window.size.height }}
-          position={{ x: window.position.x, y: window.position.y }}
+          position={getValueFromPerc({
+            x: window.position.x,
+            y: window.position.y
+          })}
           onClick={() => clickHandler(index)}
           onDrag={(e, data) => dragHandler(e, data, index)}
           enableResizing={false}
