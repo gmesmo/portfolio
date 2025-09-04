@@ -1,10 +1,12 @@
 .clockContainer {
-  position: relative;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
 
   .clock {
     position: relative;
     z-index: 10;
-    top: 4.5rem;
+    top: 7rem;
     left: -2rem;
     width: 200px;
 
@@ -34,7 +36,7 @@
     }
 
     &.sun {
-      top: -10%;
+      top: -50%;
       left: -68%;
       font-size: 25rem;
       color: var(--sun);
