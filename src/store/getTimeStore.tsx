@@ -2,12 +2,14 @@ import { create } from 'zustand'
 
 type TimeState = {
   time: Date
-  updateTime: () => void
-  getTimezone: (timezone: string) => string
   sunset: Date | null
   sunrise: Date | null
+  renderDaytime: boolean
+  updateTime: () => void
+  getTimezone: (timezone: string) => string
   getSunTime: (latitude?: number, longitude?: number) => Promise<void>
   isNight: () => boolean
+  setRenderDaytime: (value: boolean) => void
 }
 
 /**
@@ -31,6 +33,7 @@ type TimeState = {
  * @returns {Promise<void>} - Resolves when the sunrise and sunset times are updated.
  */
 const timeStore = create<TimeState>((set, get) => ({
+  renderDaytime: false,
   time: new Date(),
   // define sunset e sunrise com valores padrão
   // caso o usuário não tenha permitido a localização
@@ -97,6 +100,10 @@ const timeStore = create<TimeState>((set, get) => ({
 
     // A noite é quando o tempo atual é maior que o pôr do sol OU menor que o nascer do sol (no caso de passar meia-noite)
     return time > sunset! || time < sunrise!
+  },
+
+  setRenderDaytime: (value: boolean) => {
+    set({ renderDaytime: value })
   }
 }))
 

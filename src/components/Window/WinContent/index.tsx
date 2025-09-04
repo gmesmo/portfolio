@@ -18,7 +18,7 @@ const WinContent = ({ winName }: WinContentProps) => {
 
 const About = () => {
   return (
-    <>
+    <div className={styles.about}>
       <div className={`${styles.heading} ${isMobile() && styles.mobile}`}>
         <span>
           <p>Guilherme Machado</p>
@@ -47,7 +47,7 @@ const About = () => {
           real às equipes e organizações.
         </p>
       </div>
-    </>
+    </div>
   )
 }
 

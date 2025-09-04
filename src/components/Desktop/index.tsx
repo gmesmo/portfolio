@@ -12,8 +12,7 @@ import { useTimeStore } from '../../store/getTimeStore'
 
 const Desktop = () => {
   const [isAlertOn, setIsAlertOn] = useState(false)
-  const { isNight } = useTimeStore()
-  const [renderDaytime, setRenderDaytime] = useState(isNight())
+  const { isNight, renderDaytime, setRenderDaytime } = useTimeStore()
 
   useEffect(() => {
     if (isAlertOn) {
@@ -27,7 +26,7 @@ const Desktop = () => {
 
   useEffect(() => {
     setRenderDaytime(nightValue)
-  }, [nightValue])
+  }, [nightValue, setRenderDaytime])
 
   const handleClockClick = () => {
     if (renderDaytime === isNight()) {

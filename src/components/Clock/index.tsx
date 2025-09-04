@@ -5,6 +5,7 @@ import styles from './styles.module.scss'
 import { Alert, Button } from '@mui/material'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 import LightModeIcon from '@mui/icons-material/LightMode'
+import { isMobile } from '../../utils/screen'
 
 type clockProps = {
   clockClick: () => void
@@ -68,7 +69,9 @@ const Clock = ({ clockClick, nightModeOn }: clockProps) => {
         </Alert>
       )}
       <div
-        className={`${styles.clockContainer} ${nightModeOn && styles.night}`}
+        className={`${styles.clockContainer} ${nightModeOn && styles.night} ${
+          isMobile() && styles.mobile
+        }`}
       >
         <p className={styles.clock} onClick={() => clockClick()}>
           {time.toLocaleTimeString('en-US', {
