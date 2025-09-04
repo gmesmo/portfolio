@@ -39,7 +39,26 @@
       margin-top: 2rem;
     }
 
+    .avatarWrapper {
+      position: relative;
+      padding: 0;
+
+      &::after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: url('https://github.com/gmesmo.png');
+
+        filter: blur(30px);
+      }
+    }
+
     img {
+      position: relative;
       width: 180px;
       height: 180px;
       border-radius: 50%;

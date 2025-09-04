@@ -52,7 +52,10 @@ const Desktop = () => {
       )}
 
       <FolderIcons setAlertOn={setIsAlertOn} />
-      <Clock clockClick={() => handleClockClick()} />
+      <Clock
+        clockClick={() => handleClockClick()}
+        nightModeOn={renderDaytime}
+      />
       <Window />
       <Waves night={renderDaytime} />
     </section>

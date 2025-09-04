@@ -1,17 +1,73 @@
-.clock {
-  font-size: 2rem;
-  color: var(--primary);
-  letter-spacing: 3px;
-  user-select: none;
-  line-height: 88px;
+.clockContainer {
+  position: relative;
 
-  text-shadow: 0 0 6px var(--primary);
+  .clock {
+    position: relative;
+    z-index: 10;
+    top: 4.5rem;
+    left: -2rem;
+    width: 200px;
 
-  cursor: pointer;
+    font-size: 1.95rem;
+    text-align: center;
+
+    letter-spacing: 3px;
+    user-select: none;
+    line-height: 88px;
+
+    text-shadow: 0 0 6px var(--primary);
+
+    cursor: pointer;
+  }
+
+  .icon {
+    position: absolute;
+    top: 150dvh;
+    left: -31%;
+
+    font-size: 16rem;
+    color: var(--primary);
+    transition: all 0.8s ease-in-out;
+
+    &.moon {
+      filter: drop-shadow(0 0px 12px var(--primary));
+    }
+
+    &.sun {
+      top: -10%;
+      left: -68%;
+      font-size: 25rem;
+      color: var(--sun);
+      filter: drop-shadow(0 0px 12px var(--sun));
+
+      animation: rotate 12s infinite linear;
+    }
+  }
+
+  &.night {
+    .icon.sun {
+      top: 150dvh;
+    }
+
+    .icon.moon {
+      top: -5%;
+    }
+  }
 }
 
 .alert {
   position: absolute;
+  z-index: 999;
+
   left: 50%;
   transform: translateX(-50%);
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

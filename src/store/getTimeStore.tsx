@@ -52,6 +52,7 @@ const timeStore = create<TimeState>((set, get) => ({
       let sunriseDate: Date
 
       if (latitude && longitude) {
+        console.log('latitude e longitude', latitude, longitude)
         const res = await fetch(
           `https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&formatted=0`
         )
@@ -76,6 +77,8 @@ const timeStore = create<TimeState>((set, get) => ({
           0,
           0
         )
+
+        console.log(`${sunsetDate} - ${sunriseDate}`)
       }
 
       set({ sunset: sunsetDate, sunrise: sunriseDate })

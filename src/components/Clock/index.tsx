@@ -3,12 +3,15 @@ import { useTimeStore } from '../../store/getTimeStore'
 
 import styles from './styles.module.scss'
 import { Alert, Button } from '@mui/material'
+import DarkModeIcon from '@mui/icons-material/DarkMode'
+import LightModeIcon from '@mui/icons-material/LightMode'
 
 type clockProps = {
   clockClick: () => void
+  nightModeOn: boolean
 }
 
-const Clock = ({ clockClick }: clockProps) => {
+const Clock = ({ clockClick, nightModeOn }: clockProps) => {
   const { time, updateTime, getSunTime } = useTimeStore()
   const [hasPermission, setHasPermission] = useState<boolean | null>(null)
 
@@ -64,13 +67,17 @@ const Clock = ({ clockClick }: clockProps) => {
           </Button>
         </Alert>
       )}
-      <div>
+      <div
+        className={`${styles.clockContainer} ${nightModeOn && styles.night}`}
+      >
         <p className={styles.clock} onClick={() => clockClick()}>
           {time.toLocaleTimeString('en-US', {
             hour: '2-digit',
             minute: '2-digit'
           })}
         </p>
+        <DarkModeIcon className={`${styles.icon} ${styles.moon}`} />
+        <LightModeIcon className={`${styles.icon} ${styles.sun}`} />
       </div>
     </>
   )

@@ -24,7 +24,9 @@ const About = () => {
           <p>Guilherme Machado</p>
           <p>Desenvolvedor Front-end</p>
         </span>
-        <img src='https://github.com/gmesmo.png' alt='Guilherme Machado' />
+        <div className={styles.avatarWrapper}>
+          <img src='https://github.com/gmesmo.png' alt='Guilherme Machado' />
+        </div>
       </div>
       <div className={styles.text}>
         <p>
