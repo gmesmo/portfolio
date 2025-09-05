@@ -35,11 +35,11 @@ export function setPosition(position: position): { x: number; y: number } {
   const pos = getValueFromPerc(position)
 
   if (isMobile()) {
-    position.x = screenWidth / 2 < pos.x ? 10 : pos.x
+    position.x = screenWidth / 3 < pos.x ? 10 : pos.x
     position.y = pos.y + 140
   } else if (isTablet()) {
     position.x = screenWidth / 2 < pos.x ? 170 : pos.x - 50
-    position.y = pos.y
+    position.y = pos.y + 120
   } else if (isDesktop()) {
     position.x = screenWidth / 2 < pos.x ? 850 : pos.x
     position.y = pos.y
@@ -56,7 +56,7 @@ export function setSize(size: size): size {
     size.height = 500
   }
   if (isTablet()) {
-    size.width = screenWidth / 1.3
+    size.width = screenWidth / 1.5
     size.height = 500
   }
 

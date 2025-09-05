@@ -17,18 +17,18 @@ type Project = {
 const projects: Project[] = [
   {
     name: 'EBAC Projeto 6',
-    link: 'https://ebac-projeto6.vercel.app/',
+    link: 'https://efood-gmesmo.vercel.app/',
     description: 'Projeto 6 - EBAC',
     image: '/images/ebac-projeto6.png',
-    github: 'https://github.com/gmesmo/ebac-projeto6',
+    github: 'https://github.com/gmesmo/ebac_projeto_6',
     resources: ['React', 'Typescript', 'Styled Components', 'React Router']
   },
   {
     name: 'Hotel Sereia',
-    link: 'https://hotel-sereia.vercel.app/',
+    link: 'https://hotelsereia.com.br',
     description: 'Hotel Sereia',
     image: '/images/hotel-sereia.png',
-    github: 'https://github.com/gmesmo/hotel-sereia',
+    github: 'https://github.com/gmesmo/hotel-sereia-ts',
     resources: []
   },
   {

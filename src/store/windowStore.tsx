@@ -28,7 +28,7 @@ export const useWindowStore = create<openedWindows>((set) => ({
       id: crypto.randomUUID(),
       name: 'SOBRE MIM',
       icon: <PersonIcon />,
-      position: setPosition({ x: '55%', y: '11%' }),
+      position: setPosition({ x: '35%', y: '11%' }),
       size: setSize({ width: 850, height: 700 }),
       selected: true
     }
