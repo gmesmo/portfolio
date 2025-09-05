@@ -15,6 +15,13 @@ type FolderIconsProps = {
   setAlertOn: (value: boolean) => void
 }
 
+/**
+ * Renders a list of folder icons that can be clicked to open new windows.
+ * Limits the number of open windows to 10; shows an alert if the limit is reached.
+ * Displays a counter on each folder icon indicating the number of open windows of that type.
+ *
+ * @param setAlertOn - Function to toggle the alert state when the window limit is reached.
+ */
 const FolderIcons = ({ setAlertOn }: FolderIconsProps) => {
   const { windows, addWindow } = useWindowStore()
 

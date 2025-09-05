@@ -1,5 +1,6 @@
 import { isMobile } from '../../../utils/screen'
 import Contact from '../../Contact'
+import Projects from '../../Projects'
 import styles from './styles.module.scss'
 
 type WinContentProps = {
@@ -16,6 +17,12 @@ const WinContent = ({ winName }: WinContentProps) => {
   )
 }
 
+/**
+ * Componente About exibe informações sobre Guilherme Machado, incluindo nome, cargo,
+ * foto de perfil e uma breve descrição de sua experiência profissional e objetivos de carreira.
+ *
+ * @returns {JSX.Element} Um bloco de conteúdo com informações pessoais e profissionais.
+ */
 const About = () => {
   return (
     <div className={styles.about}>
@@ -49,10 +56,6 @@ const About = () => {
       </div>
     </div>
   )
-}
-
-const Projects = () => {
-  return <div>Projects</div>
 }
 
 export default WinContent

@@ -4,6 +4,15 @@ type WavesProps = {
   night?: boolean
 }
 
+/**
+ * Renders a decorative SVG wave component for desktop layouts.
+ *
+ * @param night - If true, applies night mode styles to the waves.
+ * @returns A React fragment containing the SVG waves.
+ *
+ * The component uses multiple layered SVG `<use>` elements to create a parallax wave effect.
+ * The `night` prop toggles a CSS class for night mode styling.
+ */
 const Waves = ({ night }: WavesProps) => {
   return (
     <>

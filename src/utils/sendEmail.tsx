@@ -12,7 +12,6 @@ export const sendEmail = async (form: HTMLFormElement) => {
 
     return { success: true, message: result.text || 'Enviado com sucesso' }
   } catch (error: any) {
-    console.error('Erro ao enviar email (detalhes):', error)
     return {
       success: false,
       message:

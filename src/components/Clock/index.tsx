@@ -12,11 +12,22 @@ type clockProps = {
   nightModeOn: boolean
 }
 
+/**
+ * Clock component that displays the current time and toggles between day and night modes
+ * based on the user's geolocation and permissions.
+ *
+ * - Requests geolocation permission to determine sunrise/sunset times for day/night mode.
+ * - Shows a warning alert if geolocation permission is denied, allowing the user to retry.
+ * - Updates the displayed time every second using a timer from the `useTimeStore` hook.
+ * - Cleans up the timer on component unmount.
+ * - Renders icons for dark and light modes, and applies appropriate styles.
+ *
+ * @param clockClick - Callback function triggered when the clock is clicked.
+ * @param nightModeOn - Boolean indicating if night mode is currently active.
+ */
 const Clock = ({ clockClick, nightModeOn }: clockProps) => {
-  const { time, updateTime, getSunTime } = useTimeStore()
+  const { time, updateTime, stopUpdateTime, getSunTime } = useTimeStore()
   const [hasPermission, setHasPermission] = useState<boolean | null>(null)
-
-  updateTime()
 
   const locationPermission = useCallback(() => {
     // Pega posição atual
@@ -29,6 +40,16 @@ const Clock = ({ clockClick, nightModeOn }: clockProps) => {
       }
     )
   }, [getSunTime])
+
+  // ✅ Inicia o timer apenas uma vez quando o componente monta
+  useEffect(() => {
+    updateTime() // Inicia o timer de atualização
+
+    // Cleanup: para o timer quando o componente desmonta
+    return () => {
+      stopUpdateTime()
+    }
+  }, [updateTime, stopUpdateTime])
 
   useEffect(() => {
     // Checa permissão de geolocalização
@@ -43,7 +64,13 @@ const Clock = ({ clockClick, nightModeOn }: clockProps) => {
 
         // também escuta mudanças (se o usuário alterar nas configs)
         result.onchange = () => {
-          setHasPermission(result.state === 'granted')
+          const newState = result.state === 'granted'
+          setHasPermission(newState)
+
+          // Se permissão foi concedida, busca localização
+          if (newState) {
+            locationPermission()
+          }
         }
       })
     }
