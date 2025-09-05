@@ -30,7 +30,7 @@ const FolderIcons = ({ setAlertOn }: FolderIconsProps) => {
       x: 250 + 25 * windows.length,
       y: 100 + 25 * windows.length
     }
-    const size = { width: 650, height: 500 }
+    const size = { width: 850, height: 700 }
 
     if (windows.length < 10) {
       addWindow(folderIcons[code], position, size)

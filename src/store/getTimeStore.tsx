@@ -1,22 +1,28 @@
 import { create } from 'zustand'
+import {
+  checkGeolocationPermission,
+  requestGeolocationPermission,
+  markGeolocationUsage,
+  type GeolocationPermissionState
+} from '../utils/geolocation'
 
 type TimeState = {
   time: Date
   sunset: Date | null
   sunrise: Date | null
   renderDaytime: boolean
-  isLoading: boolean // Nova propriedade para controlar loading
+  isLoading: boolean
+  permissionStatus: GeolocationPermissionState
   updateTime: () => void
-  stopUpdateTime: () => void // Nova função para parar o timer
+  stopUpdateTime: () => void
   getTimezone: (timezone: string) => string
   getSunTime: (latitude?: number, longitude?: number) => Promise<void>
+  checkGeolocationPermission: () => Promise<void>
+  requestLocationPermission: () => Promise<boolean>
   isNight: () => boolean
   setRenderDaytime: (value: boolean) => void
 }
 
-/**
- * Zustand store hook for managing time-related state and utilities.
- */
 const timeStore = create<TimeState>((set, get) => {
   let timeInterval: NodeJS.Timeout | null = null
 
@@ -24,17 +30,14 @@ const timeStore = create<TimeState>((set, get) => {
     renderDaytime: false,
     time: new Date(),
     isLoading: false,
-    // define sunset e sunrise com valores padrão
+    permissionStatus: 'prompt', // Estado inicial da permissão
     sunset: new Date(new Date().setHours(18, 0, 0, 0)),
     sunrise: new Date(new Date().setHours(6, 0, 0, 0)),
 
     updateTime: () => {
-      // Para qualquer timer anterior
       if (timeInterval) {
         clearInterval(timeInterval)
       }
-
-      // Inicia novo timer que atualiza a cada minuto
       timeInterval = setInterval(() => {
         set({ time: new Date() })
       }, 60000)
@@ -50,10 +53,29 @@ const timeStore = create<TimeState>((set, get) => {
     getTimezone: (timezone: string) =>
       new Date().toLocaleTimeString('en-US', { timeZone: timezone }),
 
+    checkGeolocationPermission: async () => {
+      const status = await checkGeolocationPermission()
+      set({ permissionStatus: status })
+    },
+
+    requestLocationPermission: async () => {
+      const result = await requestGeolocationPermission()
+      if (result.success && result.position) {
+        markGeolocationUsage()
+        await get().getSunTime(
+          result.position.coords.latitude,
+          result.position.coords.longitude
+        )
+        await get().checkGeolocationPermission()
+        return true
+      }
+      await get().checkGeolocationPermission()
+      return false
+    },
+
     getSunTime: async (latitude?: number, longitude?: number) => {
       const { isLoading } = get()
 
-      // Evita múltiplas chamadas simultâneas
       if (isLoading) {
         return
       }
@@ -78,6 +100,7 @@ const timeStore = create<TimeState>((set, get) => {
           sunsetDate = new Date(data.results.sunset)
           sunriseDate = new Date(data.results.sunrise)
         } else {
+          // Usa valores padrão
           sunsetDate = new Date(
             time.getFullYear(),
             time.getMonth(),
@@ -103,6 +126,7 @@ const timeStore = create<TimeState>((set, get) => {
           isLoading: false
         })
       } catch (error) {
+        console.error('Erro ao obter horários do sol:', error)
         set({ isLoading: false })
       }
     },
@@ -110,8 +134,6 @@ const timeStore = create<TimeState>((set, get) => {
     isNight: () => {
       const { time, sunset, sunrise } = get()
 
-      // Se não temos os horários do sol, assumimos valores padrão
-      // Não chamamos getSunTime aqui para evitar loops
       if (sunset === null || sunrise === null) {
         const defaultSunset = new Date(
           time.getFullYear(),
@@ -134,7 +156,6 @@ const timeStore = create<TimeState>((set, get) => {
         return time > defaultSunset || time < defaultSunrise
       }
 
-      // A noite é quando o tempo atual é maior que o pôr do sol OU menor que o nascer do sol
       return time > sunset || time < sunrise
     },
 

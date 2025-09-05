@@ -1,3 +1,6 @@
+type position = { x: number | string; y: number | string }
+type size = { width: number; height: number }
+
 type Folder = {
   id: string
   name: string
@@ -7,7 +10,7 @@ type Folder = {
 interface AppWindow extends Folder {
   winType: string
   position: { x: number | string; y: number | string }
-  size: { width: number; height: number }
+  size: size
   selected?: boolean
 }
 

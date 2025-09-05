@@ -1,13 +1,3 @@
-type position = {
-  x: number | string
-  y: number | string
-}
-
-type size = {
-  width: number
-  height: number
-}
-
 // Verifica se a tela é mobile
 export function isMobile(width = window.innerWidth): boolean {
   return width < 768
@@ -58,8 +48,7 @@ export function setPosition(position: position): { x: number; y: number } {
   return getValueFromPerc(position)
 }
 
-export function setSize(): { width: number; height: number } {
-  let size: size = { width: 650, height: 500 }
+export function setSize(size: size): size {
   const screenWidth = window.innerWidth
 
   if (isMobile()) {
@@ -68,10 +57,6 @@ export function setSize(): { width: number; height: number } {
   }
   if (isTablet()) {
     size.width = screenWidth / 1.3
-    size.height = 500
-  }
-  if (isDesktop()) {
-    size.width = 650
     size.height = 500
   }
 

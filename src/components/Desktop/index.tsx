@@ -5,34 +5,15 @@ import { Alert } from '@mui/material'
 import Clock from '../Clock'
 import FolderIcons from '../FolderIcons'
 import Window from '../Window'
+import LocationPermissionButton from '../LocationPermissionButton'
 
 import styles from './styles.module.scss'
 import Waves from './Waves'
 import { useTimeStore } from '../../store/getTimeStore'
 
-/**
- * Renders the main desktop interface, including folder icons, a clock, windows, and background waves.
- *
- * @component
- * @returns {JSX.Element} The rendered desktop section.
- *
- * @remarks
- * - Integrates with a time store to manage day/night mode.
- * - Displays an alert when the maximum number of windows is reached.
- * - Allows toggling between day and night modes via the clock.
- *
- * @internalremarks
- * - Uses `useState` for alert visibility.
- * - Uses `useEffect` to synchronize day/night mode and alert timeout.
- *
- * @example
- * ```tsx
- * <Desktop />
- * ```
- */
 const Desktop = () => {
   const [isAlertOn, setIsAlertOn] = useState(false)
-  const { isNight, renderDaytime, setRenderDaytime } = useTimeStore()
+  const { isNight, renderDaytime, setRenderDaytime, checkGeolocationPermission, getSunTime, permissionStatus, requestLocationPermission } = useTimeStore()
 
   useEffect(() => {
     if (isAlertOn) {
@@ -41,6 +22,21 @@ const Desktop = () => {
       }, 3000)
     }
   }, [isAlertOn])
+
+  useEffect(() => {
+    // Verifica o status da permissão ao carregar
+    checkGeolocationPermission()
+  }, [checkGeolocationPermission])
+
+  useEffect(() => {
+    // Inicializa com valores padrão sempre
+    getSunTime()
+    
+    // Se a permissão já foi concedida, tenta obter a localização real
+    if (permissionStatus === 'granted') {
+      requestLocationPermission()
+    }
+  }, [permissionStatus, getSunTime, requestLocationPermission])
 
   const nightValue = isNight()
 
@@ -71,6 +67,7 @@ const Desktop = () => {
       )}
 
       <FolderIcons setAlertOn={setIsAlertOn} />
+      <LocationPermissionButton className={styles.locationButton} />
       <Clock
         clockClick={() => handleClockClick()}
         nightModeOn={renderDaytime}
@@ -82,3 +79,5 @@ const Desktop = () => {
 }
 
 export default Desktop
+
+

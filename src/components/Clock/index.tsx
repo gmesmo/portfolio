@@ -1,8 +1,7 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useTimeStore } from '../../store/getTimeStore'
 
 import styles from './styles.module.scss'
-import { Alert, Button } from '@mui/material'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 import LightModeIcon from '@mui/icons-material/LightMode'
 import { isMobile } from '../../utils/screen'
@@ -27,7 +26,6 @@ type clockProps = {
  */
 const Clock = ({ clockClick, nightModeOn }: clockProps) => {
   const { time, updateTime, stopUpdateTime, getSunTime } = useTimeStore()
-  const [hasPermission, setHasPermission] = useState<boolean | null>(null)
 
   const locationPermission = useCallback(() => {
     // Pega posição atual
@@ -55,17 +53,9 @@ const Clock = ({ clockClick, nightModeOn }: clockProps) => {
     // Checa permissão de geolocalização
     if ('permissions' in navigator) {
       navigator.permissions.query({ name: 'geolocation' }).then((result) => {
-        if (result.state === 'granted') {
-          setHasPermission(true)
-          locationPermission()
-        } else {
-          setHasPermission(false)
-        }
-
         // também escuta mudanças (se o usuário alterar nas configs)
         result.onchange = () => {
           const newState = result.state === 'granted'
-          setHasPermission(newState)
 
           // Se permissão foi concedida, busca localização
           if (newState) {
@@ -78,23 +68,6 @@ const Clock = ({ clockClick, nightModeOn }: clockProps) => {
 
   return (
     <>
-      {hasPermission === false && (
-        <Alert
-          onClose={() => setHasPermission(null)}
-          severity='warning'
-          className={styles.alert}
-        >
-          Esse site usa sua localização para alternar entre o modo dia e noite.
-          <Button
-            color='inherit'
-            size='small'
-            onClick={() => locationPermission()}
-            sx={{ ml: 2 }}
-          >
-            PERMITIR
-          </Button>
-        </Alert>
-      )}
       <div
         className={`${styles.clockContainer} ${nightModeOn && styles.night} ${
           isMobile() && styles.mobile
