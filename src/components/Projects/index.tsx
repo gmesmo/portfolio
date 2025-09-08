@@ -1,98 +1,184 @@
-import { useState } from 'react'
+import { Box, Button, Tab, Tooltip, Typography } from '@mui/material'
 
-import { TabContext, TabList, TabPanel } from '@mui/lab'
-import { Box, Chip, Tab, Typography } from '@mui/material'
+import { FaReact } from 'react-icons/fa'
+import { BiLogoTypescript } from 'react-icons/bi'
+import {
+  SiStyledcomponents,
+  SiFormik,
+  SiVite,
+  SiCssmodules,
+  SiI18Next
+} from 'react-icons/si'
+import { AiFillApi } from 'react-icons/ai'
 
 import { useTimeStore } from '../../store/getTimeStore'
+import styles from './styles.module.scss'
 
-type Project = {
-  name: string
-  link: string
-  description: string
-  image: string
-  github: string
-  resources: string[]
-}
+import efood from '../../assets/images/efood.png'
+import hotelsereia from '../../assets/images/hotelsereia.png'
+import t20poderes from '../../assets/images/t20-poderes.png'
+import { useState } from 'react'
+import { TabContext, TabList, TabPanel } from '@mui/lab'
 
 const projects: Project[] = [
   {
     name: 'EBAC Projeto 6',
     link: 'https://efood-gmesmo.vercel.app/',
-    description: 'Projeto 6 - EBAC',
-    image: '/images/ebac-projeto6.png',
+    description:
+      'Este projeto é uma plataforma de delivery de alimentos que permite a gestão de restaurantes e seus cardápios. Desenvolvido com React, TypeScript, Styled Components e Formik, a aplicação oferece uma experiência intuitiva para a exploração de restaurantes, visualização de detalhes e gerenciamento de pedidos, integrando-se a uma API para dados dinâmicos.',
+    image: efood,
     github: 'https://github.com/gmesmo/ebac_projeto_6',
-    resources: ['React', 'Typescript', 'Styled Components', 'React Router']
+    resources: [
+      {
+        name: 'React',
+        icon: FaReact
+      },
+      {
+        name: 'Typescript',
+        icon: BiLogoTypescript
+      },
+      {
+        name: 'Styled Components',
+        icon: SiStyledcomponents
+      },
+      {
+        name: 'Formik',
+        icon: SiFormik
+      },
+      {
+        name: 'API',
+        icon: AiFillApi
+      }
+    ]
   },
   {
     name: 'Hotel Sereia',
     link: 'https://hotelsereia.com.br',
-    description: 'Hotel Sereia',
-    image: '/images/hotel-sereia.png',
+    description:
+      'Desenvolvido como um projeto freelance, o website do Hotel Sereia oferece uma experiência digital completa para os hóspedes, apresentando a estrutura, serviços e belezas naturais do hotel. Construído com Vite, TypeScript, CSS Modules e I18Next, o site garante performance, escalabilidade e suporte a múltiplos idiomas, refletindo a qualidade e o conforto do empreendimento.',
+    image: hotelsereia,
     github: 'https://github.com/gmesmo/hotel-sereia-ts',
-    resources: []
+    resources: [
+      {
+        name: 'Vite',
+        icon: SiVite
+      },
+      {
+        name: 'Typescript',
+        icon: BiLogoTypescript
+      },
+      {
+        name: 'CSS Modules',
+        icon: SiCssmodules
+      },
+      {
+        name: 'I18Next',
+        icon: SiI18Next
+      }
+    ]
   },
   {
     name: 'T20 Poderes',
     link: 'https://t20-poderes.vercel.app/',
-    description: 'T20 Poderes',
-    image: '/images/t20-poderes.png',
+    description:
+      'Este projeto foi desenvolvido como um hobby para auxiliar jogadores e mestres de RPG de mesa, especificamente para o sistema Tormenta20. Com o objetivo de facilitar o acesso a informações oficiais de poderes e habilidades, a plataforma oferece uma interface intuitiva para consulta rápida. Construído com React, TypeScript e CSS Modules, o site garante uma experiência de usuário fluida e eficiente, tornando a gestão de regras e a criação de personagens mais acessíveis.',
+    image: t20poderes,
     github: 'https://github.com/gmesmo/t20-poderes',
-    resources: []
+    resources: [
+      {
+        name: 'React',
+        icon: FaReact
+      },
+      {
+        name: 'Typescript',
+        icon: BiLogoTypescript
+      },
+      {
+        name: 'CSS Modules',
+        icon: SiCssmodules
+      }
+    ]
   }
 ]
 
 const Projects = () => {
-  const [value, setValue] = useState('0')
   const { renderDaytime } = useTimeStore()
+  const [value, setValue] = useState(0)
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
   }
 
+  const handleClick = (link: string, iframe: boolean) => {
+    if (!iframe) return window.open(link, '_blank')
+  }
+
   return (
-    <Box sx={{ width: '100%', typography: 'body1' }}>
+    <Box sx={{ display: 'flex', height: '100%' }}>
       <TabContext value={value}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <TabList
-            textColor={!renderDaytime ? 'primary' : 'secondary'}
-            indicatorColor={!renderDaytime ? 'primary' : 'secondary'}
-            onChange={handleChange}
-            aria-label='Projetos'
-            centered
-          >
-            <Tab label='EBAC Projeto 6' value='0' />
-            <Tab label='Hotel Sereia' value='1' />
-            <Tab label='T20 Poderes' value='2' />
-          </TabList>
+        <TabList
+          orientation='vertical'
+          textColor={!renderDaytime ? 'primary' : 'secondary'}
+          indicatorColor={!renderDaytime ? 'primary' : 'secondary'}
+          onChange={handleChange}
+          aria-label='Projetos'
+          sx={{ borderRight: 1, borderColor: 'divider' }}
+        >
+          {projects.map((project, index) => (
+            <Tab key={index} label={project.name} value={index} />
+          ))}
+        </TabList>
+        <Box
+          sx={{
+            width: '80%',
+            fullHeight: '100%'
+          }}
+        >
+          {projects.map((project, i) => (
+            <TabPanel key={i} value={i}>
+              <Box className={styles.projectHeader}>
+                <Typography variant='h5'>{project.name}</Typography>
+                <div className={styles.resources}>
+                  {project.resources.map((resource) => {
+                    const Icon = resource.icon
+
+                    return (
+                      <Tooltip
+                        title={resource.name}
+                        key={resource.name}
+                        placement='bottom'
+                        arrow
+                      >
+                        <Icon size={28} />
+                      </Tooltip>
+                    )
+                  })}
+                </div>
+                <div className={styles.imageGroup}>
+                  <img src={project.image} alt={project.name} />
+                  <div>
+                    <Button
+                      variant='contained'
+                      sx={{ width: '50%' }}
+                      onClick={() => handleClick(project.github, false)}
+                    >
+                      GitHub
+                    </Button>
+                    <Button variant='contained' sx={{ width: '50%' }}>
+                      Link
+                    </Button>
+                  </div>
+                </div>
+              </Box>
+              <Typography
+                variant='body1'
+                sx={{ mt: 2, textAlign: 'justify', textIndent: '2rem' }}
+              >
+                {project.description}
+              </Typography>
+            </TabPanel>
+          ))}
         </Box>
-        {projects.map((project, index) => (
-          <TabPanel key={index} value={index.toString()}>
-            <Typography variant='h6' align='center'>
-              {project.name}
-            </Typography>
-            <Typography variant='body2' align='center'>
-              {project.resources.map((resource, index) => (
-                <Chip
-                  key={index}
-                  label={resource}
-                  color={!renderDaytime ? 'primary' : 'secondary'}
-                  sx={{ m: 0.5 }}
-                />
-              ))}
-            </Typography>
-            <img
-              src={project.image}
-              alt={`Imagem do projeto ${project.name}`}
-            />
-            <p>{project.description}</p>
-            <a href={project.link} target='_blank' rel='noreferrer'>
-              Acessar
-            </a>
-            <a href={project.github} target='_blank' rel='noreferrer'>
-              GitHub
-            </a>
-          </TabPanel>
-        ))}
       </TabContext>
     </Box>
   )

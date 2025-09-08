@@ -25,3 +25,17 @@ interface openedWindows {
   dragWindow: (id: string, position: { x: number; y: number }) => void
   selectWindow: (id: string) => void
 }
+
+type Resource = {
+  name: string
+  icon: ReactNode
+}
+
+type Project = {
+  name: string
+  link: string
+  description: string
+  image: string
+  github: string
+  resources: Resource[]
+}
