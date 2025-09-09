@@ -3,9 +3,52 @@ import Contact from '../../Contact'
 import Projects from '../../Projects'
 import styles from './styles.module.scss'
 
+import { FaReact } from 'react-icons/fa'
+import { BiLogoTypescript } from 'react-icons/bi'
+import {
+  SiStyledcomponents,
+  SiFormik,
+  SiVite,
+  SiCssmodules,
+  SiI18Next
+} from 'react-icons/si'
+import { AiFillApi } from 'react-icons/ai'
+import { Tooltip } from '@mui/material'
+
 type WinContentProps = {
   winName: string
 }
+
+const techs: Resource[] = [
+  {
+    name: 'React',
+    icon: FaReact
+  },
+  {
+    name: 'Typescript',
+    icon: BiLogoTypescript
+  },
+  {
+    name: 'Styled Components',
+    icon: SiStyledcomponents
+  },
+  {
+    name: 'Formik',
+    icon: SiFormik
+  },
+  {
+    name: 'Vite',
+    icon: SiVite
+  },
+  {
+    name: 'CSS Modules',
+    icon: SiCssmodules
+  },
+  {
+    name: 'i18next',
+    icon: SiI18Next
+  }
+]
 
 const WinContent = ({ winName }: WinContentProps) => {
   return (
@@ -33,6 +76,20 @@ const About = () => {
         </span>
         <div className={styles.avatarWrapper}>
           <img src='https://github.com/gmesmo.png' alt='Guilherme Machado' />
+        </div>
+      </div>
+      <div className={styles.techs}>
+        <p>Tecnologias</p>
+        <div className={styles.techsList}>
+          {techs.map((tech) => {
+            const TechIcon = tech.icon
+
+            return (
+              <Tooltip title={tech.name} key={tech.name}>
+                <TechIcon size={30} />
+              </Tooltip>
+            )
+          })}
         </div>
       </div>
       <div className={styles.text}>

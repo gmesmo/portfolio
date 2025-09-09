@@ -122,8 +122,9 @@ const Projects = () => {
       setIframe({ name, link })
       setShowIframe(true)
       return
+    } else {
+      window.open(link, '_blank')
     }
-    if (!iframe) return window.open(link, '_blank')
   }
 
   return (
@@ -203,7 +204,7 @@ const Projects = () => {
       </TabContext>
       {showIframe && (
         <>
-          <Portal container={document.getElementById('aux')}>
+          <Portal container={document.getElementById('desktop')}>
             <div className={styles.overlay}>
               <div className={styles.iframeHeader}>
                 <h2>{iframe.name}</h2>

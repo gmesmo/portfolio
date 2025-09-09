@@ -81,6 +81,26 @@
     }
   }
 
+  .techs {
+    width: 100%;
+    text-align: center;
+
+    .techsList {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin: 1rem 0;
+
+      svg {
+        padding: 4px;
+        border-radius: 50%;
+        background-color: var(--accent);
+      }
+    }
+  }
+
   .text {
     text-align: justify;
     line-height: 1.25rem;

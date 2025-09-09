@@ -9,7 +9,6 @@ function App() {
     <div id='App' className='App'>
       <ThemeProvider theme={theme}>
         <Desktop />
-        <div id='aux'></div>
       </ThemeProvider>
     </div>
   )

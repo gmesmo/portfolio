@@ -13,7 +13,15 @@ import { useTimeStore } from '../../store/getTimeStore'
 
 const Desktop = () => {
   const [isAlertOn, setIsAlertOn] = useState(false)
-  const { isNight, renderDaytime, setRenderDaytime, checkGeolocationPermission, getSunTime, permissionStatus, requestLocationPermission } = useTimeStore()
+  const {
+    isNight,
+    renderDaytime,
+    setRenderDaytime,
+    checkGeolocationPermission,
+    getSunTime,
+    permissionStatus,
+    requestLocationPermission
+  } = useTimeStore()
 
   useEffect(() => {
     if (isAlertOn) {
@@ -31,7 +39,7 @@ const Desktop = () => {
   useEffect(() => {
     // Inicializa com valores padrão sempre
     getSunTime()
-    
+
     // Se a permissão já foi concedida, tenta obter a localização real
     if (permissionStatus === 'granted') {
       requestLocationPermission()
@@ -54,6 +62,7 @@ const Desktop = () => {
 
   return (
     <section
+      id='desktop'
       className={`${styles.desktop} ${renderDaytime ? styles.night : ''}`}
     >
       {isAlertOn && (
@@ -79,5 +88,3 @@ const Desktop = () => {
 }
 
 export default Desktop
-
-
