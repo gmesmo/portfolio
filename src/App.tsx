@@ -6,9 +6,10 @@ import theme from './theme'
 
 function App() {
   return (
-    <div className='App'>
+    <div id='App' className='App'>
       <ThemeProvider theme={theme}>
         <Desktop />
+        <div id='aux'></div>
       </ThemeProvider>
     </div>
   )

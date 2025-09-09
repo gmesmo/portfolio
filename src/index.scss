@@ -10,3 +10,13 @@
   max-height: 100dvh;
   overflow-x: hidden;
 }
+
+iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100dvw;
+  height: 100dvh;
+
+  z-index: 60;
+}
