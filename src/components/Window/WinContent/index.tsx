@@ -79,7 +79,7 @@ const About = () => {
         </div>
       </div>
       <div className={styles.techs}>
-        <p>Tecnologias</p>
+        <p>Tecnologias principais</p>
         <div className={styles.techsList}>
           {techs.map((tech) => {
             const TechIcon = tech.icon
@@ -94,21 +94,19 @@ const About = () => {
       </div>
       <div className={styles.text}>
         <p>
-          Sou profissional de tecnologia com experiência em Suporte Técnico na
-          Onsite Tecnologia, onde atuo auxiliando clientes em sistemas de gestão
-          e vendas, desenvolvendo relatórios em SQL e realizando análises de
-          dados para identificar e solucionar inconsistências. Essa vivência
-          consolidou minhas habilidades técnicas e de resolução de problemas,
-          fundamentais para o ambiente de TI.
+          Sou desenvolvedor front-end apaixonado por tecnologia e inovação,
+          possuo boa experiência em desenvolvimento de interfaces de usuário
+          interativas e responsivas, utilizando tecnologias como React,
+          TypeScript, Vite e Styled Components. Minha abordagem centrada no
+          usuário garante uma experiência fluida e intuitiva, permitindo que os
+          usuários naveguem e interajam de maneira eficiente com o site.
         </p>
         <br />
         <p>
-          Atualmente estou em transição para a área de desenvolvimento, cursando
-          Formação Fullstack em Java pela EBAC e aprofundando meus estudos em
-          front-end com React.js, Redux.js e consumo de APIs. Tenho como
-          objetivo criar interfaces modernas, responsivas e voltadas para a
-          experiência do usuário, contribuindo para projetos que agreguem valor
-          real às equipes e organizações.
+          Atualmente estou estudando para me tornar um desenvolvedor full-stack
+          e estou ansioso para aplicar meus conhecimentos em projetos complexos
+          e contribuir para soluções inovadoras. Estou sempre em busca de novos
+          desafios e oportunidades para crescer como desenvolvedor.
         </p>
       </div>
     </div>
