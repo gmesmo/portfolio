@@ -12,7 +12,6 @@ import {
   SiCssmodules,
   SiI18Next
 } from 'react-icons/si'
-import { AiFillApi } from 'react-icons/ai'
 import { Tooltip } from '@mui/material'
 
 type WinContentProps = {
